@@ -41,16 +41,10 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
 void loop() {
   // large block of text
-  tft.fillScreen(ST77XX_BLACK);
   
   //displayText("Hello world!", ST77XX_WHITE);
-  displayFace(HAPPY);
-  blinkLed(14, 500);
-  displayFace(SAD);
-  delay(500);  
 
   server.handleClient();
-
 }
 
 
@@ -68,7 +62,10 @@ void setup(void) {
   WiFi.softAPConfig(local_ip, gateway, subnet);
   delay(100);
 
-  server.on("/", handle_OnConnect);
+  server.on("/", handleOnConnect);\
+  server.on("/smile", handleSmile);
+  server.on("/sad", handleSad);
+
   server.onNotFound(handle_NotFound);
   
   server.begin();
@@ -76,7 +73,10 @@ void setup(void) {
 
 
   Serial.println("Initialization done");
+  tft.fillScreen(ST77XX_BLACK);
+
   delay(1000);
+
 
 }
 
@@ -84,10 +84,18 @@ void handle_NotFound(){
   server.send(404, "text/plain", "Not found");
 }
 
-void handle_OnConnect() {
+void handleOnConnect() {
 
   Serial.println("GPIO4 Status: OFF | GPIO5 Status: OFF");
   server.send(200, "text/html", generateHTML(1,2)); 
+}
+
+void handleSad() {
+  displayFace(SAD);
+}
+
+void handleSmile() {
+  displayFace(HAPPY);
 }
 
 /*
@@ -113,8 +121,8 @@ String generateHTML(uint8_t led1stat,uint8_t led2stat){
   ptr +="</head>\n";
   ptr +="<body>\n";
   ptr +="<h2>IMP 2022</h2>\n";
-  ptr +="<p>SMILE</p><a class=\"button button-on\" href=\"/led1on\">SMILE</a>\n";
-  ptr +="<p>SAD</p><a class=\"button button-on\" href=\"/led1on\">SAD</a>\n";
+  ptr +="<a href=\"/smile\">SMILE</a>\n";
+  ptr +="<a href=\"/sad\">SAD</a>\n";
   ptr +="</body>\n";
   return ptr;
 }
