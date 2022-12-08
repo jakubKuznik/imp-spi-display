@@ -1,0 +1,59 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[left=2cm, top=3cm, text={17cm, 24cm} ]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{times}
+\usepackage[unicode, hidelinks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{{./img/}}
+\usepackage{xcolor}
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[[#1]]}}}
+\usepackage[parfill]{parskip}
+\usepackage{listings}
+
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \includegraphics[scale=0.15]{fit_logo.png}\\
+        \vspace{\stretch{0.39}} \\
+        \huge IMP\,--\,PROJEKT\\
+\hfill \break
+        \large 19. Demonstrace ovládání TFT displeje přes WiFi/Bluetooth\\
+\hfill \break
+        \normalsize Jakub Kuzník \\
+        xkuzni04
+        
+        \vspace{\stretch{0.61}}
+        {\Large\noindent \today }
+    \end{center}
+    
+    
+
+\end{titlepage}
+
+% Obsahova stranka 
+{\hypersetup{hidelinks}\tableofcontents}
+\clearpage
+
+
+
+\section{Úvod}
+\input{kapitoly/uvod}
+
+\section{ESP32}
+\input{kapitoly/obsah.tex}
+
+\section{Závěr}
+\input{kapitoly/zaver}
+
+\newpage
+%\section{Reference}
+\input{kapitoly/zdroje}
+
+\clearpage
+
+\end{document}
+
+
